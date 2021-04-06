@@ -2,7 +2,8 @@ package silk2H5
 
 import (
 	"errors"
-	"silk2H5/silk"
+
+	"github.com/xuthus5/silk2H5/silk"
 )
 
 type Silk2H5 struct {

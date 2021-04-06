@@ -10,9 +10,10 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
-	"silk2H5/transcoder"
 	"strconv"
 	"strings"
+
+	"github.com/xuthus5/silk2H5/transcoder"
 )
 
 type Transcoder struct {

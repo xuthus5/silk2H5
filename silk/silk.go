@@ -13,12 +13,13 @@ import "C"
 import (
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
 	"io/ioutil"
 	"os"
-	"silk2H5/transcoder/ffmpeg"
 	"strings"
 	"unsafe"
+
+	"github.com/google/uuid"
+	"github.com/xuthus5/silk2H5/transcoder/ffmpeg"
 )
 
 const (
