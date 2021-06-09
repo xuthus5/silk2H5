@@ -178,7 +178,8 @@ int Decoder(char* inputPath,char* outPath)
     bitInFile = fopen( bitInFileName, "rb" );
     if( bitInFile == NULL ) {
         printf( "Error: could not open input file %s\n", bitInFileName );
-        exit( 0 );
+		//exit( 0 );
+		return 1;
     }
 
     /* Check Silk header */
@@ -192,7 +193,8 @@ int Decoder(char* inputPath,char* outPath)
            if( strcmp( header_buf, "!SILK_V3" ) != 0 ) {
                /* Non-equal strings */
                printf( "Error: Wrong Header %s\n", header_buf );
-               exit( 0 );
+               //exit( 0 );
+               return 1;
            }
         } else {
            counter = fread( header_buf, sizeof( char ), strlen( "#!SILK_V3" ), bitInFile );
@@ -200,7 +202,8 @@ int Decoder(char* inputPath,char* outPath)
            if( strcmp( header_buf, "#!SILK_V3" ) != 0 ) {
                /* Non-equal strings */
                printf( "Error: Wrong Header %s\n", header_buf );
-               exit( 0 );
+               return 1;
+			   //exit( 0 );
            }
         }
     }
@@ -208,7 +211,8 @@ int Decoder(char* inputPath,char* outPath)
     speechOutFile = fopen( speechOutFileName, "wb" );
     if( speechOutFile == NULL ) {
         printf( "Error: could not open output file %s\n", speechOutFileName );
-        exit( 0 );
+        //exit( 0 );
+        return 1;
     }
 
     /* Set the samplingrate that is requested for the output */

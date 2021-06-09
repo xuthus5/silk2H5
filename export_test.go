@@ -8,7 +8,8 @@ import (
 )
 
 func TestTransToWavByte(t *testing.T) {
-	fr, err := os.Open("./testdata/test.silk")
+	//fr, err := os.Open("./testdata/test.silk")
+	fr, err := os.Open("./testdata/test.go")
 	if err != nil {
 		fmt.Printf("Open test.silk err: %v", err)
 		panic(err)

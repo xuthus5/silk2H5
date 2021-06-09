@@ -63,9 +63,13 @@ func TransByte(buf []byte, typ uint32) ([]byte, error) {
 	inputPathC := C.CString(inputPath)
 	outPathC := C.CString(outputPath)
 	// 将 silk 格式转码为 pcm 中间文件
-	var _ = C.Decoder(inputPathC, outPathC)
+	var retCode = C.Decoder(inputPathC, outPathC)
+	rc := int(retCode)
 	C.free(unsafe.Pointer(inputPathC))
 	C.free(unsafe.Pointer(outPathC))
+	if rc != 0 {
+		return nil, errors.New("decode amr error")
+	}
 
 	err = transPcmToAudio(outputPath, wavPath)
 	if err != nil {
