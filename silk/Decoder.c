@@ -480,7 +480,7 @@ int Decoder(char* inputPath,char* outPath)
         printf("\n\n");
     } else {
         /* print time and % of realtime */
-        printf( "%.3f %.3f %d\n", 1e-6 * tottime, 1e-4 * tottime / filetime, totPackets );
+		// printf( "%.3f %.3f %d\n", 1e-6 * tottime, 1e-4 * tottime / filetime, totPackets );
     }
     return 0;
 }
