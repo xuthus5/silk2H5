@@ -13,6 +13,7 @@ import "C"
 import (
 	"errors"
 	"fmt"
+	"github.com/xuthus5/silk2H5"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -22,18 +23,12 @@ import (
 	"github.com/xuthus5/silk2H5/transcoder/ffmpeg"
 )
 
-const (
-	TransTypeNil = iota
-	TransTypeWav
-	TransTypeMp3
-)
-
 func genPathID() string {
 	var id = uuid.New().String()
 	return fmt.Sprintf("/tmp/%s", strings.Replace(id, "-", "", -1))
 }
 
-func TransByte(buf []byte, typ uint32) ([]byte, error) {
+func TransByte(buf []byte, transType silk2H5.TransType) ([]byte, error) {
 	if buf == nil {
 		return nil, errors.New("buf empty")
 	}
@@ -49,10 +44,10 @@ func TransByte(buf []byte, typ uint32) ([]byte, error) {
 	}
 
 	var suffix string
-	switch typ {
-	case TransTypeWav:
+	switch transType {
+	case silk2H5.TransType_TransTypeWAV:
 		suffix = ".wav"
-	case TransTypeMp3:
+	case silk2H5.TransType_TransTypeMP3:
 		suffix = ".mp3"
 	default:
 		return nil, errors.New("unsupported type")
@@ -101,7 +96,7 @@ func transPcmToAudio(inputPath, OutputPath string) error {
 	overwrite := true
 	audioCodec := "pcm_s16le"
 	audioChannels := 2
-	audioRate := 16000
+	audioRate := 24000
 	opts := ffmpeg.Options{
 		Overwrite:     &overwrite,
 		OutputFormat:  &format,

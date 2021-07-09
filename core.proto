@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option go_package = "./;silk2H5";
+
+package silk2H5;
+
+enum TransType {
+    TransTypeNil = 0;
+    TransTypeMP3 = 1;
+    TransTypeWAV = 2;
+}

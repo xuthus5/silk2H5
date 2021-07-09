@@ -4,10 +4,12 @@ var (
 	std = New()
 )
 
-func TransToWavByte(src []byte) ([]byte, error) {
-	return std.TransSilkByteToWavByte(src)
+// ToWav 包函数 直接转换src为wav
+func ToWav(src []byte) ([]byte, error) {
+	return std.ToWavByte(src)
 }
 
-func TransToMp3Byte(src []byte) ([]byte, error) {
-	return std.TransSilkByteToMp3Byte(src)
+// ToMp3 包函数 直接转换src为mp3
+func ToMp3(src []byte) ([]byte, error) {
+	return std.ToMp3Byte(src)
 }
