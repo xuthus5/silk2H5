@@ -55,7 +55,7 @@ type Options struct {
 	Hwaccel               *string           `flag:"-hwaccel"`
 	StreamIds             map[string]string `flag:"-streamid"`
 	VideoFilter           *string           `flag:"-vf"`
-	AudioFilter           *string           `flag:"-af"`
+	AudioFilter           *string           `flag:"-filter:a"`
 	SkipVideo             *bool             `flag:"-vn"`
 	SkipAudio             *bool             `flag:"-an"`
 	CompressionLevel      *int              `flag:"-compression_level"`

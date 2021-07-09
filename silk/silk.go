@@ -5,22 +5,21 @@ package silk
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
-
 #include "SKP_Silk_SDK_API.h"
 #include "Decoder.h"
 */
 import "C"
+
 import (
 	"errors"
 	"fmt"
-	"github.com/xuthus5/silk2H5"
+	"github.com/google/uuid"
+	"github.com/xuthus5/silk2H5/core"
+	"github.com/xuthus5/silk2H5/transcoder/ffmpeg"
 	"io/ioutil"
 	"os"
 	"strings"
 	"unsafe"
-
-	"github.com/google/uuid"
-	"github.com/xuthus5/silk2H5/transcoder/ffmpeg"
 )
 
 func genPathID() string {
@@ -28,7 +27,7 @@ func genPathID() string {
 	return fmt.Sprintf("/tmp/%s", strings.Replace(id, "-", "", -1))
 }
 
-func TransByte(buf []byte, transType silk2H5.TransType) ([]byte, error) {
+func TransByte(buf []byte, transType core.TransType) ([]byte, error) {
 	if buf == nil {
 		return nil, errors.New("buf empty")
 	}
@@ -45,9 +44,9 @@ func TransByte(buf []byte, transType silk2H5.TransType) ([]byte, error) {
 
 	var suffix string
 	switch transType {
-	case silk2H5.TransType_TransTypeWAV:
+	case core.TransType_TransTypeWAV:
 		suffix = ".wav"
-	case silk2H5.TransType_TransTypeMP3:
+	case core.TransType_TransTypeMP3:
 		suffix = ".mp3"
 	default:
 		return nil, errors.New("unsupported type")
@@ -75,6 +74,11 @@ func TransByte(buf []byte, transType silk2H5.TransType) ([]byte, error) {
 		return nil, err
 	}
 
+	// 声音提高
+	if err := increaseAudioVolume(wavPath); err != nil {
+		return nil, err
+	}
+
 	// 读取
 	f, err := ioutil.ReadFile(wavPath)
 	if err != nil {
@@ -91,12 +95,32 @@ func TransByte(buf []byte, transType silk2H5.TransType) ([]byte, error) {
 	return f, nil
 }
 
+func increaseAudioVolume(srcPath string) error {
+	audioFilter := "'volume=1.5'"
+	opts := ffmpeg.Options{
+		AudioFilter: &audioFilter,
+	}
+	ffmpegConf := &ffmpeg.Config{
+		FfmpegBinPath: "ffmpeg",
+	}
+	_, err := ffmpeg.
+		New(ffmpegConf).
+		Input(srcPath).
+		Output(srcPath).
+		WithOptions(opts).
+		Start(opts)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func transPcmToAudio(inputPath, OutputPath string) error {
 	format := "s16le"
 	overwrite := true
 	audioCodec := "pcm_s16le"
 	audioChannels := 2
-	audioRate := 24000
+	audioRate := 12000
 	opts := ffmpeg.Options{
 		Overwrite:     &overwrite,
 		OutputFormat:  &format,

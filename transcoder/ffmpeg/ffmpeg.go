@@ -58,6 +58,7 @@ func (t *Transcoder) Start(opts transcoder.Options) (<-chan transcoder.Progress,
 
 	// 初始化命令
 	cmd := exec.Command(t.config.FfmpegBinPath, args...)
+	fmt.Printf("cmd: %s %s\n", t.config.FfmpegBinPath, strings.Join(args, " "))
 
 	// 获取 stderr 并启动 progress
 	if t.config.ProgressEnabled && !t.config.Verbose {

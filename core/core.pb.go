@@ -4,7 +4,7 @@
 // 	protoc        v3.17.1
 // source: core.proto
 
-package silk2H5
+package core
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

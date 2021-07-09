@@ -9,7 +9,7 @@ import (
 
 func TestTransToWavByte(t *testing.T) {
 	//fr, err := os.Open("./testdata/test.silk")
-	fr, err := os.Open("./testdata/test.go")
+	fr, err := os.Open("./testdata/msg_1311.amr")
 	if err != nil {
 		fmt.Printf("Open test.silk err: %v", err)
 		panic(err)
@@ -20,7 +20,7 @@ func TestTransToWavByte(t *testing.T) {
 		fmt.Printf("Read test.silk err: %v", err)
 		panic(err)
 	}
-	transBody, err := TransToWavByte(body)
+	transBody, err := ToWav(body)
 	if err != nil {
 		fmt.Printf("TransToWavByte err: %v", err)
 		panic(err)
@@ -51,7 +51,7 @@ func TestTransToMp3Byte(t *testing.T) {
 		fmt.Printf("Read test.silk err: %v", err)
 		panic(err)
 	}
-	transBody, err := TransToMp3Byte(body)
+	transBody, err := ToMp3(body)
 	if err != nil {
 		fmt.Printf("TransToWavByte err: %v", err)
 		panic(err)

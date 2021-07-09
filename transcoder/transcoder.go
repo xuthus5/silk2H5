@@ -6,7 +6,7 @@ type Options interface {
 	GetStrArguments() []string
 }
 
-type Progress interface {}
+type Progress interface{}
 
 type Transcoder interface {
 	Start(opts Options) (<-chan Progress, error)

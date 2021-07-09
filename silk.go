@@ -2,6 +2,7 @@ package silk2H5
 
 import (
 	"errors"
+	"github.com/xuthus5/silk2H5/core"
 
 	"github.com/xuthus5/silk2H5/silk"
 )
@@ -21,7 +22,7 @@ func (s *Silk2H5) ToWavByte(src []byte) ([]byte, error) {
 		return nil, errors.New("src empty")
 	}
 
-	body, err := silk.TransByte(src, TransType_TransTypeWAV)
+	body, err := silk.TransByte(src, core.TransType_TransTypeWAV)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +35,7 @@ func (s *Silk2H5) ToMp3Byte(src []byte) ([]byte, error) {
 		return nil, errors.New("src empty")
 	}
 
-	body, err := silk.TransByte(src, TransType_TransTypeMP3)
+	body, err := silk.TransByte(src, core.TransType_TransTypeMP3)
 	if err != nil {
 		return nil, err
 	}
